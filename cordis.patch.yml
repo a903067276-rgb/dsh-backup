@@ -1,0 +1,12 @@
+# dsh-backup：DSH 自动备份（0.1.0）
+# bundle 安装：dsh plugin --profile web add "github:a903067276-rgb/dsh-backup#main"
+# 配置（设置页可改，重启 dsh web 后生效）：
+#   backupDir      备份目录（默认 ~/Documents/DSH/backup，代码内兜底）
+#   customDirs     自定义备份目录列表（每项一个绝对路径）
+#   intervalHours  定时备份间隔（小时）
+#   keepCount      保留最近 N 份，旧的自动删除
+#   enabled        定时备份开关
+# 说明：本文件不带 config 时全部用代码默认值；设置页保存后写回本文件。
+- insert:
+    - id: backup
+      name: 'dsh-backup'

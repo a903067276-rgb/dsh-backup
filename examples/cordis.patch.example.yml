@@ -1,0 +1,14 @@
+# dsh-backup 手动挂载示例（cordis.patch.yml）
+
+```yaml
+- insert:
+    - id: backup
+      name: 'dsh-backup'
+      config:
+        backupDir: /Users/me/Documents/DSH/backup
+        customDirs:
+          - /Users/me/Documents/DSH/memory
+        intervalHours: 6
+        keepCount: 10
+        enabled: true
+```
