@@ -50,7 +50,7 @@ dsh plugin --profile web add "github:a903067276-rgb/dsh-backup#main"
 
 ## 工作原理
 
-- **Host 半**：零依赖 tar+gzip 打包器（`lib/tar.js`，纯 Node 流式——不依赖系统 zip、不走 shell、不受会话沙箱限制）；`timer` 定时调度；`/api/dsh-backup/*` 路由供设置页调用。
+- **Host 半**：零依赖 zip 打包器（`lib/zip.js`，纯 Node 流式——不依赖系统 zip、不走 shell、不受会话沙箱限制）；`timer` 定时调度；`/api/dsh-backup/*` 路由供设置页调用。
 - **Client 半**：一个设置页区块（`settings.section`，「备份」）负责列备份、改配置；保存后把配置写回当前 profile 的 `cordis.patch.yml`（重启生效）。
 
 ## 注意事项
