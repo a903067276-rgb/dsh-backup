@@ -8,6 +8,10 @@
 
 Automated backups of your DSH data — sessions, profile config and any custom directories — packed into `.zip` archives with scheduled or manual runs and automatic rotation.
 
+## Screenshot
+
+![dsh-backup settings](assets/dsh-backup-settings.png)
+
 | Action | Effect |
 |---|---|
 | Scheduled backup | Packs DSH data on a timer (default every 6 h) |
