@@ -6,7 +6,7 @@
 
 *非官方项目：社区成员独立开发维护，非 DeepSeek 官方产品。*
 
-DSH 数据自动备份——会话记录、配置文件与自定义目录打包成 `.tgz`，支持定时与手动备份、自动轮转。
+DSH 数据自动备份——会话记录、配置文件与自定义目录打包成 `.zip`，支持定时与手动备份、自动轮转。
 
 | 操作 | 效果 |
 |---|---|
@@ -40,8 +40,8 @@ dsh plugin --profile web add "github:a903067276-rgb/dsh-backup#main"
 | 平台 | 状态 |
 |---|---|
 | macOS | ✅ 实测 |
-| Linux | ✅ 预期可用（纯 Node 实现，不依赖系统 tar） |
-| Windows | ✅ 预期可用（纯 Node 实现，不依赖系统 tar） |
+| Linux | ✅ 预期可用（纯 Node 实现，不依赖系统 zip） |
+| Windows | ✅ 预期可用（纯 Node 实现，不依赖系统 zip） |
 
 ## 环境要求
 
@@ -50,14 +50,14 @@ dsh plugin --profile web add "github:a903067276-rgb/dsh-backup#main"
 
 ## 工作原理
 
-- **Host 半**：零依赖 tar+gzip 打包器（`lib/tar.js`，纯 Node 流式——不依赖系统 tar、不走 shell、不受会话沙箱限制）；`timer` 定时调度；`/api/dsh-backup/*` 路由供设置页调用。
+- **Host 半**：零依赖 tar+gzip 打包器（`lib/tar.js`，纯 Node 流式——不依赖系统 zip、不走 shell、不受会话沙箱限制）；`timer` 定时调度；`/api/dsh-backup/*` 路由供设置页调用。
 - **Client 半**：一个设置页区块（`settings.section`，「备份」）负责列备份、改配置；保存后把配置写回当前 profile 的 `cordis.patch.yml`（重启生效）。
 
 ## 注意事项
 
 - 恢复故意只做手动：先停 DSH、把压缩包解压覆盖回原路径，且确认恢复无误前保留现有数据。插件自身绝不覆盖任何东西。
 - 备份目录默认 `~/Documents/DSH/backup`，可在设置里修改。
-- 只列出/删除本插件命名的备份（`dsh-backup-*.tgz`），目录里其它文件不动。
+- 只列出/删除本插件命名的备份（`dsh-backup-*.zip`），目录里其它文件不动。
 
 ## License
 

@@ -53,16 +53,16 @@ curl -o /dev/null -w "%{http_code}\n" http://127.0.0.1:3080/plugins/dsh-backup/c
 
 1. 停掉 `dsh web`（`bash ~/.dsh/restart-dsh-web.sh` 是重启不是停；直接停进程即可，见全局流程）
 2. 把现有数据先挪走兜底（如 `mv ~/.dsh/sessions ~/.dsh/sessions.pre-restore`）——确认恢复无误后再删
-3. 解压备份包覆盖回原位置：`tar -xzf <备份包> -C /`（包内路径即原相对路径，如 `sessions/`、`profiles/`、`AGENTS.md`）
+3. 解压备份包覆盖回原位置：双击解压或 `unzip <备份包> -d /`（包内路径即原相对路径，如 `sessions/`、`profiles/`、`AGENTS.md`）
 4. 启动 `dsh web`，检查会话/配置是否正常
 
 ## 平台支持
 
-macOS ✅ 实测；Linux / Windows ⚠️ 预期可用（纯 Node 实现，不依赖系统 tar / shell）。
+macOS ✅ 实测；Linux / Windows ⚠️ 预期可用（纯 Node 实现，不依赖系统 zip / shell）。
 
 ## 已知注意事项
 
-- 备份包是 `.tgz`（POSIX ustar + gzip），任何系统 tar / 解压工具都能解。
+- 备份包是标准 `.zip`（deflate），macOS 双击 / Windows 资源管理器 / 任何解压工具都能解。
 - 备份期间会话文件若在写入，单文件可能拿到写一半的状态（一致性不保证，但极少影响恢复）。
 - `profiles/*/node_modules` 不备份（安装包重装即可）；自定义目录里的 `node_modules` 会照备（用户自己负责）。
 - 超长文件名（>100 字符且拆不开 prefix）会跳过并记录告警，不中断备份。

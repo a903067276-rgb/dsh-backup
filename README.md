@@ -6,7 +6,7 @@
 
 *Unofficial project: independently developed and maintained by a community member, not an official DeepSeek product.*
 
-Automated backups of your DSH data — sessions, profile config and any custom directories — packed into `.tgz` archives with scheduled or manual runs and automatic rotation.
+Automated backups of your DSH data — sessions, profile config and any custom directories — packed into `.zip` archives with scheduled or manual runs and automatic rotation.
 
 | Action | Effect |
 |---|---|
@@ -40,8 +40,8 @@ Open **Settings → Backup**:
 | Platform | Status |
 |---|---|
 | macOS | ✅ tested |
-| Linux | ✅ expected (pure Node, no system tar required) |
-| Windows | ✅ expected (pure Node, no system tar required) |
+| Linux | ✅ expected (pure Node, no system zip required) |
+| Windows | ✅ expected (pure Node, no system zip required) |
 
 ## Requirements
 
@@ -50,14 +50,14 @@ Open **Settings → Backup**:
 
 ## How it works
 
-- **Host:** a zero-dependency tar+gzip packer (`lib/tar.js`, pure Node streams — no system `tar`, no shell, immune to the session sandbox), a `timer`-driven schedule, and a `/api/dsh-backup/*` route for the Settings page.
+- **Host:** a zero-dependency zip packer (`lib/zip.js`, pure Node streams — no system `zip`, no shell, immune to the session sandbox), a `timer`-driven schedule, and a `/api/dsh-backup/*` route for the Settings page.
 - **Client:** one Settings section (`settings.section`, "备份") that lists backups and edits configuration; saving writes the config back into the profile's `cordis.patch.yml` (takes effect after restart).
 
 ## Notes
 
 - Restore is intentionally manual: stop DSH, extract the archive over the original paths, and keep the current data around until you are sure the restore is correct. The plugin never overwrites anything by itself.
 - The backup folder defaults to `~/Documents/DSH/backup` and can be changed in Settings.
-- Only backups the plugin owns (`dsh-backup-*.tgz`) are listed/deleted — other files in the folder are left alone.
+- Only backups the plugin owns (`dsh-backup-*.zip`) are listed/deleted — other files in the folder are left alone.
 
 ## License
 
