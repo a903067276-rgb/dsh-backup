@@ -49,7 +49,7 @@ Open **Settings → Backup**:
 
 ## Requirements
 
-- DSH web (any recent version)
+- DSH web >= 0.1.0-rc.7
 - Node.js ≥ 16.7 (bundled with DSH)
 
 ## How it works

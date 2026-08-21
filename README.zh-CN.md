@@ -49,7 +49,7 @@ dsh plugin --profile web add "github:a903067276-rgb/dsh-backup#main"
 
 ## 环境要求
 
-- DSH web（任意近期版本）
+- DSH web（≥ 0.1.0-rc.7）
 - Node.js ≥ 16.7（DSH 自带）
 
 ## 工作原理
