@@ -50,6 +50,7 @@ dsh plugin --profile web add "github:a903067276-rgb/dsh-backup#main"
 ## 环境要求
 
 - DSH web（≥ 0.1.0-rc.7）
+- rc.6 用户：请安装冻结 tag：`dsh plugin add github:a903067276-rgb/dsh-backup#rc6-compat`（不再维护，强烈建议升级 rc.7+）
 - Node.js ≥ 16.7（DSH 自带）
 
 ## 工作原理

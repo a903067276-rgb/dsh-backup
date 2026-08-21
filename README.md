@@ -50,6 +50,7 @@ Open **Settings → Backup**:
 ## Requirements
 
 - DSH web >= 0.1.0-rc.7
+- **rc.6 users:** install the frozen `rc6-compat` tag instead: `dsh plugin add github:a903067276-rgb/dsh-backup#rc6-compat` (no maintenance; upgrade to rc.7+ recommended)
 - Node.js ≥ 16.7 (bundled with DSH)
 
 ## How it works
