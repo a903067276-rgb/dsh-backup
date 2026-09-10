@@ -50,8 +50,9 @@ Open **Settings → Backup**:
 ## Requirements
 
 - DSH web >= 0.1.0-rc.6
-- **Version compatibility** (best effort — the settings card uses dual-field `key`+`id` registration to satisfy both rc.6 (`id`) and rc.7+ (`key`); verified locally on rc.6/rc.8/0.1.1-rc.2, **not guaranteed on every DSH version**):
+- **Version compatibility** (best effort — the settings card uses dual-field `key`+`id` registration to satisfy both rc.6 (`id`) and rc.7+ (`key`); verified locally on rc.6/rc.8/0.1.1-rc.2/0.1.5-rc.1, **not guaranteed on every DSH version**):
   - DSH 0.1.0-rc.6 and newer (incl. 0.1.1-rc.1/rc.2): try `main` (default).
+  - **DSH 0.1.5-rc.1: load-verified** (host half loads cleanly); it only uses stable services such as `settings`/`shell` and touches none of the contracts changed in 0.1.5. The end-to-end backup/restore flow was not re-tested on 0.1.5.
   - Conservative fallbacks (the last pre-0.1.1 build): DSH 0.1.0-rc.7/rc.8 → `v0.1.2` (`dsh plugin add github:a903067276-rgb/dsh-backup#v0.1.2`); DSH 0.1.0-rc.6 → frozen `rc6-compat` tag (no maintenance).
 - Node.js ≥ 16.7 (bundled with DSH)
 - **Maintenance policy**: this plugin keeps evolving with the latest DSH releases; compatibility with older DSH versions is best-effort only and not guaranteed going forward.
