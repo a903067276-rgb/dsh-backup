@@ -52,6 +52,7 @@ Open **Settings → Backup**:
 - DSH web >= 0.1.0-rc.6
 - **Version compatibility** (best effort — the settings card uses dual-field `key`+`id` registration to satisfy both rc.6 (`id`) and rc.7+ (`key`); verified locally on rc.6/rc.8/0.1.1-rc.2/0.1.5-rc.1, **not guaranteed on every DSH version**):
   - DSH 0.1.0-rc.6 and newer (incl. 0.1.1-rc.1/rc.2): try `main` (default).
+  - **DSH 0.1.7: live config** — the plugin now declares its fields with an exported `Config` schema (all `.volatile()`), so Settings saves go through the official settings service and apply **immediately, no restart**. Host config the plugin writes lands in its own profile entry (`settings.update(entryId, patch)`); needs `@deepseek-ai/schemastery` ≥ 3.18.3 (ships with 0.1.7).
   - **DSH 0.1.5-rc.1: load-verified** (host half loads cleanly); it only uses stable services such as `settings`/`shell` and touches none of the contracts changed in 0.1.5. The end-to-end backup/restore flow was not re-tested on 0.1.5.
   - Conservative fallbacks (the last pre-0.1.1 build): DSH 0.1.0-rc.7/rc.8 → `v0.1.2` (`dsh plugin add github:a903067276-rgb/dsh-backup#v0.1.2`); DSH 0.1.0-rc.6 → frozen `rc6-compat` tag (no maintenance).
 - Node.js ≥ 16.7 (bundled with DSH)
@@ -60,7 +61,7 @@ Open **Settings → Backup**:
 ## How it works
 
 - **Host:** a zero-dependency zip packer (`lib/zip.js`, pure Node streams — no system `zip`, no shell, immune to the session sandbox), a `timer`-driven schedule, and a `/api/dsh-backup/*` route for the Settings page.
-- **Client:** one Settings section (`settings.section`, "备份") that lists backups and edits configuration; saving writes the config back into the profile's `cordis.patch.yml` (takes effect after restart).
+- **Client:** one Settings section (`settings.section`, "备份") that lists backups and edits configuration; saving goes through the official settings service into the plugin's profile-entry config (volatile fields — **takes effect immediately, no restart**; a restart is only needed on pre-0.1.7 hosts, which fall back to writing the patch file).
 
 ## Notes
 

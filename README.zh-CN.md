@@ -52,6 +52,7 @@ dsh plugin --profile web add "github:a903067276-rgb/dsh-backup#main"
 - DSH web（≥ 0.1.0-rc.6）
 - **版本兼容**（尽力兼容——设置卡片用双字段 `key`+`id` 注册，同满足 rc.6（id 契约）与 rc.7+（key 契约）；已在本地实测 rc.6/rc.8/0.1.1-rc.2/0.1.5-rc.1，**不保证每个 DSH 版本**）：
   - DSH 0.1.0-rc.6 及以上（含 0.1.1-rc.1/rc.2）：装 `main`（默认）。
+  - **DSH 0.1.7：配置即时生效**——配置字段改由插件导出 `Config` schema 声明（全部 `.volatile()`），设置页保存走官方设置服务，**改完立即生效、不需要重启**；插件写配置走自己的 profile 条目 config（`settings.update(entryId, patch)`）。需宿主 `@deepseek-ai/schemastery` ≥ 3.18.3（0.1.7 自带）。
   - **DSH 0.1.5-rc.1：加载实测通过**（host 半加载日志正常）；只用 `settings`/`shell` 等稳定服务，不碰 0.1.5 变更过的契约。备份/还原端到端流程未在 0.1.5 上复测。
   - 保守回退（升级前的最后版本）：DSH 0.1.0-rc.7/rc.8 → `v0.1.2`（`dsh plugin add github:a903067276-rgb/dsh-backup#v0.1.2`）；DSH 0.1.0-rc.6 → 冻结 `rc6-compat`（不再维护）。
 - Node.js ≥ 16.7（DSH 自带）
@@ -60,7 +61,7 @@ dsh plugin --profile web add "github:a903067276-rgb/dsh-backup#main"
 ## 工作原理
 
 - **Host 半**：零依赖 zip 打包器（`lib/zip.js`，纯 Node 流式——不依赖系统 zip、不走 shell、不受会话沙箱限制）；`timer` 定时调度；`/api/dsh-backup/*` 路由供设置页调用。
-- **Client 半**：一个设置页区块（`settings.section`，「备份」）负责列备份、改配置；保存后把配置写回当前 profile 的 `cordis.patch.yml`（重启生效）。
+- **Client 半**：一个设置页区块（`settings.section`，「备份」）负责列备份、改配置；保存走官方设置服务写进插件自己的 profile 条目 config（volatile 字段，**改完即时生效、无需重启**；只有 0.1.7 之前的老宿主才回落写 patch 文件，那条路径仍需重启）。
 
 ## 注意事项
 

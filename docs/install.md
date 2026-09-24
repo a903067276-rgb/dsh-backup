@@ -39,7 +39,9 @@ curl -X POST http://127.0.0.1:3080/api/dsh-backup/backup -H 'content-type: appli
 curl -o /dev/null -w "%{http_code}\n" http://127.0.0.1:3080/plugins/dsh-backup/client.js
 ```
 
-## 配置（设置页可改，重启生效）
+## 配置（设置页可改，保存即生效，无需重启）
+
+0.1.7 起这些字段都是 `.volatile()`：设置页保存后宿主就地更新引用，定时器下一轮就按新间隔走，**不用重启 `dsh web`**。（只有老宿主没有 `settings.update` 时才回落写 patch 文件，那条路径仍需重启。）
 
 | 键 | 默认值 | 说明 |
 |---|---|---|
