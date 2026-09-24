@@ -56,6 +56,8 @@ dsh plugin --profile web add "github:a903067276-rgb/dsh-backup#main"
   - **DSH 0.1.5-rc.1：加载实测通过**（host 半加载日志正常）；只用 `settings`/`shell` 等稳定服务，不碰 0.1.5 变更过的契约。备份/还原端到端流程未在 0.1.5 上复测。
   - 保守回退（升级前的最后版本）：DSH 0.1.0-rc.7/rc.8 → `v0.1.2`（`dsh plugin add github:a903067276-rgb/dsh-backup#v0.1.2`）；DSH 0.1.0-rc.6 → 冻结 `rc6-compat`（不再维护）。
 - Node.js ≥ 16.7（DSH 自带）
+  - ✅ **DSH 0.1.7 及以后——装本版（`v0.2.0`）**：它声明了 `peerDependencies: {"@deepseek-ai/dsh": ">=0.1.7-rc.1 <0.2.0"}`，宿主不匹配会明确拒绝加载并说明原因，不再静默出错。配置迁到 0.1.7 的插件 `Config`（`.volatile()` 字段可即时生效），改完不用重启。
+  - ⚠️ **DSH 0.1.5 及更早——请装上一版 tag `v0.1.4`**：那条线保持原行为，不含任何 0.1.7 专用 API。
 - **维护策略**：本插件将持续跟随 DSH 最新版本演进；对旧版 DSH 的兼容仅是尽力而为、不保证长期有效。
 
 ## 工作原理
