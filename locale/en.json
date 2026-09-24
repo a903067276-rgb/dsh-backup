@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Backup",
+    "description": "Scheduled or manual backups of DSH sessions, config and custom directories, packed as tgz with rotation."
+  }
+}

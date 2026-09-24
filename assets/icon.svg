@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Backup">
+  <rect x="1" y="1" width="22" height="22" rx="6" fill="#0ea5a4"/>
+  <path d="M12 6.5a5.5 5.5 0 1 0 5.5 5.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+  <path d="M12 9.5V12l1.8 1.8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M15.2 6.2h2.6v2.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M17.8 6.2 14.4 9.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+</svg>
