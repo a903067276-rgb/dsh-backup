@@ -25,7 +25,10 @@ Automated backups of your DSH data — sessions, profile config and any custom d
 ## Install
 
 ```bash
+# DSH 0.1.7 and later:
 dsh plugin --profile web add "github:a903067276-rgb/dsh-backup#main"
+# DSH 0.1.5 and older (this release needs 0.1.7+):
+# dsh plugin --profile web add "github:a903067276-rgb/dsh-backup#v0.1.4"
 ```
 
 Then restart `dsh web`. Manual fallback: `docs/install.md`.
@@ -58,6 +61,7 @@ Open **Settings → Backup**:
 - Node.js ≥ 16.7 (bundled with DSH)
   - ✅ **DSH 0.1.7 and later — use this release (`v0.2.0`)**: it declares `peerDependencies: {"@deepseek-ai/dsh": ">=0.1.7-rc.1 <0.2.0"}`, so a mismatched host refuses to load it with an explicit reason instead of failing quietly. Settings move to the 0.1.7 model (plugin `Config`, live-editable `.volatile()` fields), so changes apply without a restart.
   - ⚠️ **DSH 0.1.5 and older — install the previous tag `v0.1.4`**: that line keeps the old behavior and uses no 0.1.7-only API.
+  - ⛔ **Old plugin releases (up to `v0.1.4`) are not supported on 0.1.7** — settings silently become defaults (`settings.register/get` are gone). Upgrade the plugin together with the host.
 - **Maintenance policy**: this plugin keeps evolving with the latest DSH releases; compatibility with older DSH versions is best-effort only and not guaranteed going forward.
 
 ## How it works
