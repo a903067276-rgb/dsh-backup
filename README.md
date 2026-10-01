@@ -20,7 +20,9 @@ Automated backups of your DSH data — sessions, profile config and any custom d
 | Rotation | Keeps only the latest N archives (default 10), old ones are deleted |
 | Restore | Manual only — extract an archive back to its original location (steps in `docs/install.md`) |
 
-**What is backed up by default:** `~/.dsh/sessions` (conversation history), `~/.dsh/profiles` (config, **excluding** `node_modules`), `~/.dsh/AGENTS.md` (global conventions). Everything else — like your memory library — goes into the custom directory list.
+**What is backed up by default (expanded in v0.4.0):** `~/.dsh/sessions` (conversation history), `~/.dsh/profiles` (config, **excluding** `node_modules`), `~/.dsh/AGENTS.md` (global conventions), `~/.dsh/cordis.patch.yml` (global patch layer), `~/.dsh/storages` (scheduled tasks / workspaces, **excluding** the projection cache), `~/.dsh/llm-deepseek`, `~/.dsh/bin` (your own scripts), root-level small configs (`*.json/yml/yaml/txt`, < 1 MB), and **`~/.dsh/attachments` (uploaded originals — on by default, toggle it off in Settings)**. Everything else — like your memory library — goes into the custom directory list.
+
+**Skipped automatically (noise / rebuildable):** `.DS_Store`, `*.lock`, `*.bak-fix`, `*-shm`/`*-wal`, `storages/session_projcache*`. **Never backed up** (reinstall/rebuild): `session-index.sqlite`, `cache/`, `dsh-runtimes/`, `speech-to-text/`.
 
 ## Install
 
