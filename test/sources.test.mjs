@@ -69,6 +69,7 @@ function setup() {
   put('bin/dsh-retry', 64)
   put('llm-deepseek/files-v3.json', 64)
   put('perm-guard.json', 16)
+  put('.credentials.yaml', 32) // 明文凭据（includeCredentials 控制）
   // 明确不备份（可重建）
   put('session-index.sqlite', 4096)
   put('cache/big.bin', 4096)
@@ -80,8 +81,8 @@ function setup() {
 }
 
 /** 挂真函数 + 真 zip 打包器跑一次，返回条目名数组 */
-async function runPack(includeAttachments) {
-  const state = { includeAttachments, customDirs: [join(EXTRA, 'memory')] }
+async function runPack(opts = {}) {
+  const state = { includeAttachments: true, includeCredentials: true, customDirs: [join(EXTRA, 'memory')], ...opts }
   const { sourcePairs, excludePatterns } = loadSourceFns(state)
   const pairs = sourcePairs()
   const excludes = excludePatterns()
@@ -101,6 +102,7 @@ const EXPECTED = [
   'bin/dsh-retry',
   'llm-deepseek/files-v3.json',
   'perm-guard.json',
+  '.credentials.yaml',
   'attachments/v1/a.png',
   'memory/note.md', // 自定义目录
 ]
@@ -118,20 +120,29 @@ const FORBIDDEN = [
   'cache/big.bin',
 ]
 
-test('默认源扩充 + 排除规则 + 自定义目录（includeAttachments 开）', async () => {
+test('默认源扩充 + 排除规则 + 自定义目录（附件/凭据默认开）', async () => {
   setup()
-  const names = await runPack(true)
+  const names = await runPack()
   for (const p of EXPECTED) assert.ok(names.includes(p), '应包含 ' + p + '（实际 ' + names.length + ' 条）')
   for (const p of FORBIDDEN) assert.ok(!names.includes(p), '不应包含 ' + p)
 })
 
 test('includeAttachments=false → 附件不进包，其余照旧', async () => {
   setup()
-  const names = await runPack(false)
+  const names = await runPack({ includeAttachments: false })
   assert.ok(!names.includes('attachments/v1/a.png'), '关掉开关后附件不应进包')
   assert.ok(names.includes('cordis.patch.yml'), '其它新增源不受影响')
   assert.ok(names.includes('memory/note.md'), '自定义目录不受影响')
   // 根层小文件仍收，但 session-index.sqlite（非小配置文件后缀）仍不收
   assert.ok(names.includes('perm-guard.json'), '根层小配置应仍在')
   assert.ok(!names.includes('session-index.sqlite'), '大文件仍不收')
+})
+
+test('includeCredentials=false → 明文凭据不进包', async () => {
+  setup()
+  const names = await runPack({ includeCredentials: false })
+  assert.ok(!names.includes('.credentials.yaml'), '凭据文件不应进包')
+  assert.ok(!names.includes('llm-deepseek/files-v3.json'), 'llm-deepseek 不应进包')
+  assert.ok(names.includes('cordis.patch.yml'), '全局补丁不受影响')
+  assert.ok(names.includes('storages/schedule.json'), 'storages 不受影响')
 })
