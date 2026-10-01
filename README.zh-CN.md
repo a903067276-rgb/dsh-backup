@@ -20,7 +20,7 @@ DSH 数据自动备份——会话记录、配置文件与自定义目录打包�
 | 自动轮转 | 只保留最近 N 份（默认 10），旧的自动删除 |
 | 恢复 | 仅手动——把压缩包解压回原位置（步骤见 `docs/install.md`） |
 
-**默认备份内容（v0.4.0 起扩充）：** `~/.dsh/sessions`（会话记录）、`~/.dsh/profiles`（配置，**排除** `node_modules`）、`~/.dsh/AGENTS.md`（全局约定）、`~/.dsh/cordis.patch.yml`（全局补丁）、`~/.dsh/storages`（定时任务 / 工作区，**排除**投影缓存）、`~/.dsh/llm-deepseek`、`~/.dsh/bin`（自建脚本）、根层小配置（`*.json/yml/yaml/txt`，< 1MB）、**`~/.dsh/attachments`（上传原件，默认开、可在设置页关掉）**。其它内容（比如记忆库）加到自定义目录列表。
+**默认备份内容（v0.4.0 起扩充）：** `~/.dsh/sessions`（会话记录）、`~/.dsh/profiles`（配置，**排除** `node_modules`）、`~/.dsh/AGENTS.md`（全局约定）、`~/.dsh/cordis.patch.yml`（全局补丁）、`~/.dsh/storages`（定时任务 / 工作区，**排除**投影缓存）、`~/.dsh/bin`（自建脚本）、根层小配置（`*.json/yml/yaml/txt`，< 1MB）、**`~/.dsh/attachments`（上传原件，默认开、可在设置页关掉）**、**凭据（`.credentials.yaml` / `llm-deepseek`，默认开；⚠️ zip 不加密——关掉它，恢复时需重新登录/填 key）**。其它内容（比如记忆库）加到自定义目录列表。
 
 **自动跳过（噪音 / 可重建）：** `.DS_Store`、`*.lock`、`*.bak-fix`、`*-shm`/`*-wal`、`storages/session_projcache*`。**明确不备份**（重装/重建即可）：`session-index.sqlite`、`cache/`、`dsh-runtimes/`、`speech-to-text/`。
 
